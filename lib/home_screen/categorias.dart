@@ -199,11 +199,12 @@ class _CategoriaListState extends State<CategoriaList> {
   _editarCategoria(Categoria categoria) async {
     try {
       final response = await http.put(
-        Uri.parse('https://coff-v-art-api.onrender.com/api/categoria/${categoria.id}'),
+        Uri.parse('https://coff-v-art-api.onrender.com/api/categoria'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
+          "_id": categoria.id,
           'nombre': _nombreController.text,
           'descripcion': _descripcionController.text,
         }),

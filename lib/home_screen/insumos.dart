@@ -31,11 +31,11 @@ Future<Album> createAlbum(String nombre, String costoSaco, String cantidad,
 }
 
 class Album{
- final  String id;
+ final String id;
   final String nombre;
- final String costoSaco;
- final String cantidad;
- final String categoria;
+  final String costoSaco;
+  final String cantidad;
+  final String categoria;
   final String descripcion;
 
   Album({
@@ -54,10 +54,10 @@ class Album{
       costoSaco: json['costoSaco'],
       cantidad: json['cantidad'],
       categoria: json['categoria'],
-      descripcion: json['descripcion'],
-    );
+      descripcion: json['descripcion']);
   }
 }
+
 
 class InsumosApp extends StatefulWidget {
   const InsumosApp({super.key});
@@ -66,13 +66,14 @@ class InsumosApp extends StatefulWidget {
   State<InsumosApp> createState(){ return _InsumosAppState();}
 }
 
+
 class _InsumosAppState extends State<InsumosApp> {
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _costoSacoController = TextEditingController();
   final TextEditingController _cantidadController = TextEditingController();
   final TextEditingController _categoriaController = TextEditingController();
   final TextEditingController _descripcionController = TextEditingController();
-  Future<Album>? _futureAlbum;
+  Future<Album>? _futureAlbumI;
 
 
 
@@ -85,7 +86,7 @@ class _InsumosAppState extends State<InsumosApp> {
         body: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
-          child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
+          child: (_futureAlbumI == null) ? buildColumn() : buildFutureBuilder(),
         ),
       );
   }
@@ -141,12 +142,18 @@ class _InsumosAppState extends State<InsumosApp> {
         const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
-            setState(() {
-              _futureAlbum = createAlbum(_nombreController.text, _costoSacoController, _cantidadController, _categoriaController,
-               _descripcionController.text);
-            });
-          },
-          child: const Text('Crear Categoria'),
+  setState(() {
+    _futureAlbumI = createAlbum(
+      _nombreController.text,
+      _costoSacoController.text,
+      _cantidadController.text,
+      _categoriaController.text,
+      _descripcionController.text,
+    );
+  });
+},
+
+          child: const Text('Crear Insumos'),
         ),
       ],
     );
@@ -154,7 +161,7 @@ class _InsumosAppState extends State<InsumosApp> {
 
   FutureBuilder<Album> buildFutureBuilder() {
     return FutureBuilder<Album>(
-      future: _futureAlbum,
+      future: _futureAlbumI,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Text(snapshot.data!.nombre);
@@ -241,11 +248,12 @@ void initState(){
   _editarInsumo(Insumo insumo) async {
     try {
       final response = await http.put(
-        Uri.parse('https://coff-v-art-api.onrender.com/api/insumo/${insumo.id}'),
+        Uri.parse('https://coff-v-art-api.onrender.com/api/insumo'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
+           "_id": insumo.id,
           'nombre': _nombreController.text,
           'costoSaco': _costoSacoController.text,
           'cantidad': _cantidadController.text,

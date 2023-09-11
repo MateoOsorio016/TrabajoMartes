@@ -32,7 +32,7 @@ class _MyListState extends State<MyList> {
           title: const Text('Lista de Insumos'),
           trailing: const Icon(Icons.battery_6_bar),
            onTap: (){
-            final route = MaterialPageRoute(builder: (context)=> const InsumosApp());
+            final route = MaterialPageRoute(builder: (context)=> const InsumosList());
             Navigator.push(context, route);
           },
         ),

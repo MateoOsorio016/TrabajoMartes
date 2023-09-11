@@ -56,7 +56,7 @@ class Insumo {
         "nombre": nombre,
         "costoSaco": costoSaco,
         "cantidad": cantidad,
-        "categoria": [categoria],
+        "categoria": categoria,
         "descripcion": descripcion,
 
     };
