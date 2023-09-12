@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 255, 252, 251), // Fondo gris
+                color: Color.fromARGB(255, 12, 0, 0), // Fondo gris
               ),
             ),
             Center(
