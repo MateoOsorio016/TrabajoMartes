@@ -304,7 +304,9 @@ void initState(){
       appBar: AppBar(
         title: const Text('Gestión de Insumos'),
       ),
-      body: _isLoading
+      body: SingleChildScrollView(
+        child: 
+      _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -345,36 +347,36 @@ void initState(){
                                       _descripcionController.text =
                                           insumo.descripcion;
                                       return AlertDialog(
-                                        title: Text('Editar Insumo'),
+                                        title: const Text('Editar Insumo'),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             TextFormField(
                                               controller: _nombreController,
                                               decoration:
-                                                  InputDecoration(labelText: 'Nombre'),
+                                                  const InputDecoration(labelText: 'Nombre'),
                                             ),
                                             TextFormField(
                                               controller: _costoSacoController,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                   labelText: 'Costo por Saco'),
                                               keyboardType: TextInputType.number,
                                             ),
                                             TextFormField(
                                               controller: _cantidadController,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                   labelText: 'Cantidad'),
                                               keyboardType: TextInputType.number,
                                             ),
                                             TextFormField(
                                               controller: _categoriaController,
                                               decoration:
-                                                  InputDecoration(labelText: 'Categoría'),
+                                                  const InputDecoration(labelText: 'Categoría'),
                                             ),
                                             TextFormField(
                                               controller: _descripcionController,
                                               decoration:
-                                                  InputDecoration(labelText: 'Descripción'),
+                                                  const InputDecoration(labelText: 'Descripción'),
                                             ),
                                           ],
                                         ),
@@ -383,14 +385,14 @@ void initState(){
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('Cancelar'),
+                                            child: const Text('Cancelar'),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
                                               _editarInsumo(insumo);
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('Guardar'),
+                                            child: const Text('Guardar'),
                                           ),
                                         ],
                                       );
@@ -408,7 +410,7 @@ void initState(){
                                       return AlertDialog(
                                         title: const Text('Eliminar Insumo'),
                                         content:
-                                            Text('¿Estás seguro de que deseas eliminar este insumo?'),
+                                            const Text('¿Estás seguro de que deseas eliminar este insumo?'),
                                         actions: [
                                           ElevatedButton(
                                             onPressed: () {
@@ -438,6 +440,7 @@ void initState(){
                 ],
               ),
             ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

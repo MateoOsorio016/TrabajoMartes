@@ -24,8 +24,8 @@ class _LoginState extends State<Login> {
         child: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 252, 251), // Fondo gris
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 12, 0, 0), // Fondo gris
               ),
             ),
             Center(
@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         controller: emailController,
-                        style: TextStyle(color: Colors.red), // Texto en rojo
+                        style: const TextStyle(color: Colors.red), // Texto en rojo
                         decoration: const InputDecoration(
                             filled: true,
                             fillColor: Colors.white, // Fondo blanco
@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         controller: passwordController,
-                        style: TextStyle(color: Colors.red), // Texto en rojo
+                        style: const TextStyle(color: Colors.red), // Texto en rojo
                         obscureText: true,
                         decoration: const InputDecoration(
                             filled: true,
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 255, 250, 250), // Fondo gris
+      backgroundColor: const Color.fromARGB(255, 255, 250, 250), // Fondo gris
     );
   }
 }

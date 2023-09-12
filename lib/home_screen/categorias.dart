@@ -272,17 +272,17 @@ class _CategoriaListState extends State<CategoriaList> {
                                       _nombreController.text = categoria.nombre;
                                       _descripcionController.text = categoria.descripcion;
                                       return AlertDialog(
-                                        title: Text('Editar Categoría'),
+                                        title: const Text('Editar Categoría'),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             TextFormField(
                                               controller: _nombreController,
-                                              decoration: InputDecoration(labelText: 'Nombre'),
+                                              decoration: const InputDecoration(labelText: 'Nombre'),
                                             ),
                                             TextFormField(
                                               controller: _descripcionController,
-                                              decoration: InputDecoration(labelText: 'Descripción'),
+                                              decoration: const InputDecoration(labelText: 'Descripción'),
                                             ),
                                           ],
                                         ),
@@ -291,14 +291,14 @@ class _CategoriaListState extends State<CategoriaList> {
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('Cancelar'),
+                                            child: const Text('Cancelar'),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
                                               _editarCategoria(categoria);
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('Guardar'),
+                                            child: const Text('Guardar'),
                                           ),
                                         ],
                                       );
@@ -315,7 +315,7 @@ class _CategoriaListState extends State<CategoriaList> {
                                     builder: (context) {
                                       return AlertDialog(
                                         title: const Text('Eliminar Categoría'),
-                                        content: Text('¿Estás seguro de que deseas eliminar esta categoría?'),
+                                        content: const Text('¿Estás seguro de que deseas eliminar esta categoría?'),
                                         actions: [
                                           ElevatedButton(
                                             onPressed: () {
