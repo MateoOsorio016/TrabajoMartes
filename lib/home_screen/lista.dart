@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/home_screen/categorias.dart';
 import 'package:flutter_application_2/home_screen/insumos.dart';
+import 'package:flutter_application_2/home_screen/productos.dart';
 
 
 
@@ -41,6 +42,14 @@ class _MyListState extends State<MyList> {
           trailing: const Icon(Icons.water_drop_outlined),
            onTap: (){
             final route = MaterialPageRoute(builder: (context)=> const CategoriaList());
+            Navigator.push(context, route);
+          },
+        ),
+         ListTile(
+          title: const Text('Lista de Productos'),
+          trailing: const Icon(Icons.water_drop_outlined),
+           onTap: (){
+            final route = MaterialPageRoute(builder: (context)=> const ProductosList());
             Navigator.push(context, route);
           },
         ),

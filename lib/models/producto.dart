@@ -12,29 +12,29 @@ String dataModelToJson(DataModel data) => json.encode(data.toJson());
 
 class DataModel {
   DataModel({
-    required this.productos
+    required this.products
   });
   
-  List<Product> productos;
+  List<Product> products;
 
   factory DataModel.fromJson(Map<String, dynamic> json)=> DataModel(
-    productos: List<Product>.from(json["productos"].map((x)=> Product.fromJson(x)))
+    products: List<Product>.from(json["products"].map((x)=> Product.fromJson(x)))
   );
 
   Map<String, dynamic> toJson() => {
-    "productos": List<dynamic>.from(productos.map((x)=> x.toJson()))
+    "productos": List<dynamic>.from(products.map((x)=> x.toJson()))
   };
 }
 
 class Product {
     final String id;
-    final String name;
-    final String valorU;
-    final String insumo;
-    final String stockMin;
-    final String stockMax;
-    final String descripcion;
-    final int v;
+    String name;
+    String valorU;
+    String insumo;
+    String stockMin;
+    String stockMax;
+    String descripcion;
+
 
     Product({
         required this.id,
@@ -44,7 +44,7 @@ class Product {
         required this.stockMin,
         required this.stockMax,
         required this.descripcion,
-        required this.v,
+
     });
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -55,7 +55,7 @@ class Product {
         stockMin: json["stockMin"],
         stockMax: json["stockMax"],
         descripcion: json["descripcion"],
-        v: json["__v"],
+
     );
 
     Map<String, dynamic> toJson() => {
@@ -66,6 +66,6 @@ class Product {
         "stockMin": stockMin,
         "stockMax": stockMax,
         "descripcion": descripcion,
-        "__v": v,
+
     };
 }
