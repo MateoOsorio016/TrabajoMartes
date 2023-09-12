@@ -24,13 +24,13 @@ class _MyListState extends State<MyList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(title: const Text('Menú Sano')),
+     appBar: AppBar(title: const Text('Menu')),
      body: 
      ListView(
       children: [
          ListTile(
           title: const Text('Lista de Insumos'),
-          trailing: const Icon(Icons.battery_6_bar),
+          trailing: const Icon(Icons.water_drop_outlined),
            onTap: (){
             final route = MaterialPageRoute(builder: (context)=> const InsumosList());
             Navigator.push(context, route);
