@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Componentes/input.dart';
 import 'package:flutter_application_2/models/categoria.dart';
 import 'package:http/http.dart' as http;
 
-//https://frontendhbs.onrender.com/
-Future<AlbumC> createAlbum(String nombre, 
-    String descripcion) async {
+Future<AlbumC> createAlbum(String nombre, String descripcion) async {
   final response = await http.post(
     Uri.parse('https://coff-v-art-api.onrender.com/api/categoria'),
     headers: <String, String>{
@@ -16,17 +13,13 @@ Future<AlbumC> createAlbum(String nombre,
     },
     body: jsonEncode(<String, String>{
       'nombre': nombre,
-      'descripcion': descripcion
+      'descripcion': descripcion,
     }),
   );
 
   if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
     return AlbumC.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
     throw Exception(response.body);
   }
 }
@@ -36,21 +29,23 @@ class AlbumC {
   final String nombre;
   final String descripcion;
 
-  const AlbumC(
-      {required this.id,
-      required this.nombre,
-      required this.descripcion});
+  const AlbumC({
+    required this.id,
+    required this.nombre,
+    required this.descripcion,
+  });
 
   factory AlbumC.fromJson(Map<String, dynamic> json) {
     return AlbumC(
-        id: json['id'],
-        nombre: json['nombre'],
-        descripcion: json['descripcion']);
+      id: json['id'],
+      nombre: json['nombre'],
+      descripcion: json['descripcion'],
+    );
   }
 }
 
 class Categorias extends StatefulWidget {
-  const Categorias({super.key});
+  const Categorias({Key? key}) : super(key: key);
 
   @override
   State<Categorias> createState() {
@@ -62,21 +57,20 @@ class _CategoriasState extends State<Categorias> {
   final TextEditingController _nombre = TextEditingController();
   final TextEditingController _descripcion = TextEditingController();
 
-
   Future<AlbumC>? _futureAlbum;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Crear Categoria'),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(8),
-          child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
-        ),
-      );
+      appBar: AppBar(
+        title: const Text('Crear Categoria'),
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8),
+        child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
+      ),
+    );
   }
 
   Column buildColumn() {
@@ -92,7 +86,7 @@ class _CategoriasState extends State<Categorias> {
           keyboardType: TextInputType.text,
         ),
         const SizedBox(height: 10),
-         InputCampo(
+        InputCampo(
           label: "Descripción: ",
           controller: _descripcion,
           obscureText: false,
@@ -104,8 +98,8 @@ class _CategoriasState extends State<Categorias> {
         ElevatedButton(
           onPressed: () {
             setState(() {
-              _futureAlbum = createAlbum(_nombre.text,
-               _descripcion.text);
+              _futureAlbum =
+                  createAlbum(_nombre.text, _descripcion.text);
             });
           },
           child: const Text('Crear Categoria'),
@@ -130,10 +124,8 @@ class _CategoriasState extends State<Categorias> {
   }
 }
 
-// ... (código anterior)
-
 class CategoriaList extends StatefulWidget {
-  const CategoriaList({super.key});
+  const CategoriaList({Key? key}) : super(key: key);
 
   @override
   State<CategoriaList> createState() => _CategoriaListState();
@@ -142,10 +134,7 @@ class CategoriaList extends StatefulWidget {
 class _CategoriaListState extends State<CategoriaList> {
   bool _isLoading = true;
 
-  // Lista para almacenar las categorías cargadas desde la API.
   List<Categoria> categorias = [];
-
-  // Controladores para los campos de edición.
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _descripcionController = TextEditingController();
 
@@ -211,7 +200,8 @@ class _CategoriaListState extends State<CategoriaList> {
       );
 
       if (response.statusCode == 200) {
-        final categoriaActualizada = Categoria.fromJson(jsonDecode(response.body));
+        final categoriaActualizada =
+            Categoria.fromJson(jsonDecode(response.body));
         setState(() {
           categoria.nombre = categoriaActualizada.nombre;
           categoria.descripcion = categoriaActualizada.descripcion;
@@ -227,7 +217,8 @@ class _CategoriaListState extends State<CategoriaList> {
   _eliminarCategoria(Categoria categoria) async {
     try {
       final response = await http.delete(
-        Uri.parse('https://coff-v-art-api.onrender.com/api/categoria/${categoria.id}'),
+        Uri.parse(
+            'https://coff-v-art-api.onrender.com/api/categoria/${categoria.id}'),
       );
 
       if (response.statusCode == 200) {
@@ -250,27 +241,53 @@ class _CategoriaListState extends State<CategoriaList> {
               scrollDirection: Axis.horizontal,
               child: DataTable(
                 columns: const [
-                  DataColumn(label: Text('Nombre')),
-                  DataColumn(label: Text('Descripción')),
-                  DataColumn(label: Text('Acciones')),
+                  DataColumn(
+                    label: SizedBox(
+                      width: 100, // Ajusta el tamaño según tus necesidades
+                      child: Text('Nombre'),
+                    ),
+                  ),
+                  DataColumn(
+                    label: SizedBox(
+                      width: 200, // Ajusta el tamaño según tus necesidades
+                      child: Text('Descripción'),
+                    ),
+                  ),
+                  DataColumn(
+                    label: SizedBox(
+                      width: 100, // Ajusta el tamaño según tus necesidades
+                      child: Text('Acciones'),
+                    ),
+                  ),
                 ],
                 rows: [
                   for (var categoria in categorias)
                     DataRow(
                       cells: [
-                        DataCell(Text(categoria.nombre)),
-                        DataCell(Text(categoria.descripcion)),
+                        DataCell(
+                          SizedBox(
+                            width: 100, // Ajusta el tamaño según tus necesidades
+                            child: Text(categoria.nombre),
+                          ),
+                        ),
+                        DataCell(
+                          SizedBox(
+                            width: 200, // Ajusta el tamaño según tus necesidades
+                            child: Text(categoria.descripcion),
+                          ),
+                        ),
                         DataCell(
                           Row(
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  // Editar categoría
                                   showDialog(
                                     context: context,
                                     builder: (context) {
-                                      _nombreController.text = categoria.nombre;
-                                      _descripcionController.text = categoria.descripcion;
+                                      _nombreController.text =
+                                          categoria.nombre;
+                                      _descripcionController.text =
+                                          categoria.descripcion;
                                       return AlertDialog(
                                         title: const Text('Editar Categoría'),
                                         content: Column(
@@ -278,11 +295,13 @@ class _CategoriaListState extends State<CategoriaList> {
                                           children: [
                                             TextFormField(
                                               controller: _nombreController,
-                                              decoration: const InputDecoration(labelText: 'Nombre'),
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Nombre'),
                                             ),
                                             TextFormField(
                                               controller: _descripcionController,
-                                              decoration: const InputDecoration(labelText: 'Descripción'),
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Descripción'),
                                             ),
                                           ],
                                         ),
@@ -309,13 +328,13 @@ class _CategoriaListState extends State<CategoriaList> {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  // Eliminar categoría
                                   showDialog(
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
                                         title: const Text('Eliminar Categoría'),
-                                        content: const Text('¿Estás seguro de que deseas eliminar esta categoría?'),
+                                        content: const Text(
+                                            '¿Estás seguro de que deseas eliminar esta categoría?'),
                                         actions: [
                                           ElevatedButton(
                                             onPressed: () {

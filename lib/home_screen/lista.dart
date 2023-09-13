@@ -30,7 +30,7 @@ class _MyListState extends State<MyList> {
      ListView(
       children: [
          ListTile(
-          title: const Text('Lista de Insumos'),
+          title: const Text('Lista de Insumos', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
           trailing: const Icon(Icons.water_drop_outlined),
            onTap: (){
             final route = MaterialPageRoute(builder: (context)=> const InsumosList());
@@ -38,16 +38,16 @@ class _MyListState extends State<MyList> {
           },
         ),
          ListTile(
-          title: const Text('Lista de categorias'),
-          trailing: const Icon(Icons.water_drop_outlined),
+          title: const Text('Lista de categorias', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
+          trailing: const Icon(Icons.list_alt),
            onTap: (){
             final route = MaterialPageRoute(builder: (context)=> const CategoriaList());
             Navigator.push(context, route);
           },
         ),
          ListTile(
-          title: const Text('Lista de Productos'),
-          trailing: const Icon(Icons.water_drop_outlined),
+          title: const Text('Lista de Productos', style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
+          trailing: const Icon(Icons.production_quantity_limits),
            onTap: (){
             final route = MaterialPageRoute(builder: (context)=> const ProductosList());
             Navigator.push(context, route);

@@ -476,7 +476,7 @@ void initState(){
               _stockMax.clear();
               _descripcion.clear();
               return AlertDialog(
-                title: const Text('Crear Insumo'),
+                title: const Text('Crear Producto'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

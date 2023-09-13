@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 12, 0, 0), // Fondo gris
+                color: Color.fromARGB(255, 211, 207, 207), 
               ),
             ),
             Center(
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Image.asset(
-                        '../asset/burdeo_logo.png', // Ruta de tu imagen de logo
+                        '../asset/burdeo_logo.png', 
                         height: 120,
                       ),
                     ),
@@ -44,10 +44,10 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         controller: emailController,
-                        style: const TextStyle(color: Colors.red), // Texto en rojo
+                        style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                         decoration: const InputDecoration(
                             filled: true,
-                            fillColor: Colors.white, // Fondo blanco
+                            fillColor: Color.fromARGB(255, 247, 238, 238), 
                             border: OutlineInputBorder(),
                             labelText: "Email"),
                         validator: (value) {
@@ -62,11 +62,11 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         controller: passwordController,
-                        style: const TextStyle(color: Colors.red), // Texto en rojo
+                        style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)), 
                         obscureText: true,
                         decoration: const InputDecoration(
                             filled: true,
-                            fillColor: Colors.white, // Fondo blanco
+                            fillColor: Color.fromARGB(255, 231, 223, 223), 
                             border: OutlineInputBorder(),
                             labelText: "Password"),
                         validator: (value) {
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 255, 250, 250), // Fondo gris
+      backgroundColor: const Color.fromARGB(255, 255, 250, 250), 
     );
   }
 }
