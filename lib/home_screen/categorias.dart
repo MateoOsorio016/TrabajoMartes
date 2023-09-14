@@ -64,6 +64,7 @@ class _CategoriasState extends State<Categorias> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Crear Categoria'),
+        backgroundColor: Colors.red,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -234,7 +235,7 @@ class _CategoriaListState extends State<CategoriaList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('Lista Categorias'))),
+      appBar: AppBar(title: const Center(child: Text('Lista Categorias')), backgroundColor: Colors.red,),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

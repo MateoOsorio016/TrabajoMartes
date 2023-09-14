@@ -89,6 +89,7 @@ class _CrearProductoState extends State<CrearProducto> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Crear Producto'),
+        backgroundColor: Colors.red,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -316,7 +317,8 @@ void initState(){
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gestión de Porductos'),
+        title: const Text('Gestión de Productos'),
+        backgroundColor: Colors.red,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

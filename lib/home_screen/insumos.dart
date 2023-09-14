@@ -82,6 +82,7 @@ class _InsumosAppState extends State<InsumosApp> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Crear Categoria'),
+          backgroundColor: Colors.red,
         ),
         body: Container(
           alignment: Alignment.center,
@@ -303,6 +304,7 @@ void initState(){
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gestión de Insumos'),
+        backgroundColor: Colors.red,
       ),
       body: SingleChildScrollView(
         child: 

@@ -25,7 +25,7 @@ class _MyListState extends State<MyList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(title: const Text('Menu')),
+     appBar: AppBar(title: const Text('Menu') , backgroundColor: Colors.red,),
      body: 
      ListView(
       children: [

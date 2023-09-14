@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Login"),
+        backgroundColor: Colors.red,
       ),
       body: Form(
         key: _formKey,
