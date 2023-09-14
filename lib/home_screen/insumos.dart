@@ -401,7 +401,7 @@ void initState(){
                                     },
                                   );
                                 },
-                                child: const Text('Editar'),
+                                child: const Icon(Icons.edit),
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -432,8 +432,7 @@ void initState(){
                                     },
                                   );
                                 },
-                                child: const Text('Eliminar'),
-                              ),
+                                child: const Icon(Icons.delete),                              ),
                             ],
                           ),
                         ),

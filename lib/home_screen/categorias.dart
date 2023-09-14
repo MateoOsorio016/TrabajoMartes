@@ -325,7 +325,7 @@ class _CategoriaListState extends State<CategoriaList> {
                                     },
                                   );
                                 },
-                                child: const Text('Editar'),
+                                child: const Icon(Icons.edit),
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -355,7 +355,7 @@ class _CategoriaListState extends State<CategoriaList> {
                                     },
                                   );
                                 },
-                                child: const Text('Eliminar'),
+                                child: const Icon(Icons.delete),
                               ),
                             ],
                           ),
