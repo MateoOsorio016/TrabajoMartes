@@ -4,128 +4,96 @@ import 'package:flutter_application_2/home_screen/clientes.dart';
 import 'package:flutter_application_2/home_screen/insumos.dart';
 import 'package:flutter_application_2/home_screen/productos.dart';
 import 'package:flutter_application_2/home_screen/proveedores.dart';
-import 'package:flutter_application_2/models/cliente.dart';
-import 'package:flutter_application_2/models/proveedor.dart';
 
-class MyList extends StatefulWidget {
-  const MyList({super.key});
+class MyList extends StatelessWidget {
+  const MyList({Key? key}) : super(key: key);
 
-  @override
-  State<MyList> createState() => _MyListState();
-}
-
-class _MyListState extends State<MyList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu'),
+        title: const Text('Menú'),
         backgroundColor: Colors.red,
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: const Text(
-              'Lista de Insumos',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-            trailing: const Icon(Icons.water_drop_outlined),
+          _buildListItem(
+            title: 'Lista de Insumos',
+            icon: Icons.water_drop_outlined,
             onTap: () {
-              final route =
-                  MaterialPageRoute(builder: (context) => const InsumosList());
-              Navigator.push(context, route);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const InsumosList()),
+              );
             },
           ),
-          ListTile(
-            title: const Text(
-              'Lista de categorias',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-            trailing: const Icon(Icons.list_alt),
+          _buildListItem(
+            title: 'Lista de Categorías',
+            icon: Icons.list_alt,
             onTap: () {
-              final route = MaterialPageRoute(
-                  builder: (context) => const CategoriaList());
-              Navigator.push(context, route);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CategoriaList()),
+              );
             },
           ),
-          ListTile(
-            title: const Text(
-              'Lista de Productos',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-            trailing: const Icon(Icons.production_quantity_limits),
+          _buildListItem(
+            title: 'Lista de Productos',
+            icon: Icons.production_quantity_limits,
             onTap: () {
-              final route = MaterialPageRoute(
-                  builder: (context) => const ProductosList());
-              Navigator.push(context, route);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductosList()),
+              );
             },
           ),
-          ListTile(
-            title: const Text(
-              'Lista de Clientes',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-            trailing: const Icon(Icons.production_quantity_limits),
+          _buildListItem(
+            title: 'Lista de Clientes',
+            icon: Icons.person,
             onTap: () {
-              final route =
-                  MaterialPageRoute(builder: (context) => const ClientesList());
-              Navigator.push(context, route);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ClientesList()),
+              );
             },
           ),
-          ListTile(
-            title: const Text(
-              'Lista de rpo',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-            trailing: const Icon(Icons.production_quantity_limits),
-            onTap: () {
-              final route = MaterialPageRoute(
-                  builder: (context) => const ProveedoresList());
-              Navigator.push(context, route);
-            },
-          ),
-          // ListTile(
-          //   title: const Text('Crear Categoria'),
-          //   trailing: const Icon(Icons.water_drop_outlined),
-          //    onTap: (){
-          //     final route = MaterialPageRoute(builder: (context)=> const Categorias());
-          //     Navigator.push(context, route);
-          //   },
-          // ),
-          //  ListTile(
-          //   title: const Text('Calcular Calorías'),
-          //   trailing: const Icon(Icons.water_drop_outlined),
-          //    onTap: (){
-          //     final route = MaterialPageRoute(builder: (context)=> const Calorias());
-          //     Navigator.push(context, route);
-          //   },
-          // ),
-          // ListTile(
-          //   title: const Text('Lista de Rutinas de Ejercicio'),
-          //   trailing: const Icon(Icons.water_drop_outlined),
-          //    onTap: (){
-          //     final route = MaterialPageRoute(builder: (context)=> const MyList3());
-          //     Navigator.push(context, route);
-          //   },
-          // ),
-          //  ListTile(
-          //   title: const Text('Calcular Presión Arterial'),
-          //   trailing: const Icon(Icons.water_drop_outlined),
-          //    onTap: (){
-          //     final route = MaterialPageRoute(builder: (context)=> const Presion());
-          //     Navigator.push(context, route);
-          //   },
-          // ),
-          // ListTile(
-          //   title: const Text('Contacto'),
-          //   trailing: const Icon(Icons.water_drop_outlined),
-          //    onTap: (){
-          //     final route = MaterialPageRoute(builder: (context)=> const Contacto());
-          //     Navigator.push(context, route);
+          // _buildListItem(
+          //   title: 'Lista de Proveedores',
+          //   icon: Icons.subject,
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const ProveedoresList(),
+          //       ),
+          //     );
           //   },
           // ),
         ],
       ),
+    );
+  }
+
+  Widget _buildListItem({
+    required String title,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.black, // Cambia el color del texto
+          fontSize: 16, // Tamaño de fuente
+          fontWeight: FontWeight.bold, // Negrita
+        ),
+      ),
+      leading: Icon(
+        icon,
+        color: Colors.blue, // Cambia el color del icono
+      ),
+      trailing: const Icon(Icons.arrow_forward),
+      onTap: onTap,
     );
   }
 }

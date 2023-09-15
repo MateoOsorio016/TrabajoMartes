@@ -20,11 +20,11 @@ class DataModel4 {
 
 class Proveedor {
   final String id;
-  String nit;
+  int nit;
   String nombre;
-  String telefono;
+  int telefono;
   String factura;
-  String cantidad;
+  int cantidad;
   String fecha;
   String categoria;
   String estado;
@@ -45,9 +45,9 @@ class Proveedor {
         id: json["_id"],
         nit: json["Nit"],
         nombre: json["Nombre"],
-        telefono: json["Telefono"].toString(),
+        telefono: json["Telefono"],
         factura: json["Factura"],
-        cantidad: json["Cantidad"].toString(),
+        cantidad: json["Cantidad"],
         fecha: json["Fecha"],
         categoria: json["Categoria"],
         estado: json["Estado"],

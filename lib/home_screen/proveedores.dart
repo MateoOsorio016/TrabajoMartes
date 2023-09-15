@@ -222,8 +222,9 @@ class ProveedoresList extends StatefulWidget {
 }
 
 class _ProveedoresListState extends State<ProveedoresList> {
-  bool _isLoading = true;
+  bool _isLoading = false;
 
+  DataModel4? proveedoresList;
   List<Proveedor> proveedores = [];
   final TextEditingController _nitController = TextEditingController();
   final TextEditingController _nombreController = TextEditingController();
@@ -241,14 +242,16 @@ class _ProveedoresListState extends State<ProveedoresList> {
   }
 
   _getData() async {
+    _isLoading = true;
     try {
       String url = 'https://coffevart.onrender.com/api/proveedores';
       http.Response res = await http.get(Uri.parse(url));
       if (res.statusCode == 200) {
-        setState(() {
-          _isLoading = false;
-          proveedores = DataModel4.fromJson(json.decode(res.body)).proveedores;
-        });
+        _isLoading = false;
+        // proveedores = DataModel4.fromJson(json.decode(res.body)).proveedores;
+        proveedoresList = DataModel4.fromJson(json.decode(res.body));
+        proveedores = proveedoresList!.proveedores;
+        setState(() {});
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -344,12 +347,12 @@ class _ProveedoresListState extends State<ProveedoresList> {
     try {
       final response = await http.delete(
         Uri.parse(
-            'https://coffevart.onrender.com/api/proveedores/${proveedor.id}'),
+            'https://coffevart.onrender.com/api/proveedores/${proveedor.nit}'),
       );
 
       if (response.statusCode == 200) {
         setState(() {
-          proveedores.remove(proveedor);
+          // proveedores.remove(proveedor);
         });
       }
     } catch (e) {
@@ -385,7 +388,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
                     for (var prove in proveedores)
                       DataRow(
                         cells: [
-                          DataCell(Text(prove.nit)),
+                          DataCell(Text('${prove.nit}')),
                           DataCell(Text(prove.nombre)),
                           DataCell(Text(prove.telefono.toString())),
                           DataCell(Text(prove.factura)),
@@ -402,7 +405,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                     showDialog(
                                       context: context,
                                       builder: (context) {
-                                        _nitController.text = prove.nit;
+                                        _nitController.text = '${prove.nit}';
                                         _nombreController.text = prove.nombre;
                                         _telefonoController.text =
                                             prove.telefono.toString();
@@ -411,6 +414,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                             prove.cantidad.toString();
                                         _categoriaController.text =
                                             prove.categoria;
+                                        _fechaController.text = prove.fecha;
                                         _estadoController.text = prove.estado;
                                         return AlertDialog(
                                           title: const Text('Editar Proveedor'),

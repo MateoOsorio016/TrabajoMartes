@@ -324,7 +324,11 @@ class _ClientesListState extends State<ClientesList> {
   _eliminarInsumo(Clientes cliente) async {
     try {
       final response = await http.delete(
-        Uri.parse('https://coffevart.onrender.com/api/clientes/${cliente.Id}'),
+        Uri.parse('https://coffevart.onrender.com/api/clientes/'),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: jsonEncode({'_id': cliente.Id})
       );
 
       if (response.statusCode == 200) {
