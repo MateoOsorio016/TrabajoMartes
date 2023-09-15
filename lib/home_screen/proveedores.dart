@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Componentes/input.dart';
-import 'package:flutter_application_2/models/cliente.dart';
 import 'package:flutter_application_2/models/proveedor.dart';
-
 import 'package:http/http.dart' as http;
 
 Future<AlbumProveedores> createAlbum(
@@ -78,7 +76,7 @@ class AlbumProveedores {
 }
 
 class ProveedoresApp extends StatefulWidget {
-  const ProveedoresApp({super.key});
+  const ProveedoresApp({Key? key}) : super(key: key);
 
   @override
   State<ProveedoresApp> createState() {
@@ -102,7 +100,7 @@ class _ProveedoresAppState extends State<ProveedoresApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Crear Cliente'),
+        title: const Text('Crear Proveedor'),
         backgroundColor: Colors.red,
       ),
       body: Container(
@@ -184,17 +182,17 @@ class _ProveedoresAppState extends State<ProveedoresApp> {
           onPressed: () {
             setState(() {
               _futureAlbumProveedores = createAlbum(
-                  _nombreController.text,
                   _nitController.text,
+                  _nombreController.text,
                   _telefonoController.text,
                   _facturaController.text,
-                  _fechaController.text,
                   _cantidadController.text,
+                  _fechaController.text,
                   _categoriaController.text,
                   _estadoController.text);
             });
           },
-          child: const Text('Crear Proveedores'),
+          child: const Text('Crear Proveedor'),
         ),
       ],
     );
@@ -217,7 +215,7 @@ class _ProveedoresAppState extends State<ProveedoresApp> {
 }
 
 class ProveedoresList extends StatefulWidget {
-  const ProveedoresList({super.key});
+  const ProveedoresList({Key? key}) : super(key: key);
 
   @override
   State<ProveedoresList> createState() => _ProveedoresListState();
@@ -260,7 +258,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
   _crearInsumo() async {
     try {
       final response = await http.post(
-        Uri.parse('https://coffevart.onrender.com/api/clientes'),
+        Uri.parse('https://coffevart.onrender.com/api/proveedores'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -295,7 +293,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
     }
   }
 
-  _editarInsumo(Proveedor proveedores) async {
+  _editarInsumo(Proveedor proveedor) async {
     try {
       final response = await http.put(
         Uri.parse('https://coffevart.onrender.com/api/proveedores'),
@@ -303,7 +301,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-          "_id": proveedores.id,
+          "_id": proveedor.id,
           'Nit': _nitController.text,
           'Nombre': _nombreController.text,
           'Telefono': _telefonoController.text,
@@ -316,18 +314,19 @@ class _ProveedoresListState extends State<ProveedoresList> {
       );
 
       if (response.statusCode == 200) {
-        final proveedorActualizado = Proveedor.fromJson(jsonDecode(response.body));
+        final proveedorActualizado =
+            Proveedor.fromJson(jsonDecode(response.body));
         setState(() {
-          proveedores.nit = proveedorActualizado.nit;
-          proveedores.nombre = proveedorActualizado.nombre;
-          proveedores.telefono = proveedorActualizado.telefono;
-          proveedores.factura = proveedorActualizado.factura;
-          proveedores.fecha = proveedorActualizado.fecha;
-          proveedores.cantidad = proveedorActualizado.cantidad;
-          proveedores.categoria = proveedorActualizado.categoria;
-          proveedores.estado = proveedorActualizado.estado;
+          proveedor.nit = proveedorActualizado.nit;
+          proveedor.nombre = proveedorActualizado.nombre;
+          proveedor.telefono = proveedorActualizado.telefono;
+          proveedor.factura = proveedorActualizado.factura;
+          proveedor.fecha = proveedorActualizado.fecha;
+          proveedor.cantidad = proveedorActualizado.cantidad;
+          proveedor.categoria = proveedorActualizado.categoria;
+          proveedor.estado = proveedorActualizado.estado;
           _nitController.clear();
-           _nombreController.clear();
+          _nombreController.clear();
           _telefonoController.clear();
           _facturaController.clear();
           _fechaController.clear();
@@ -344,7 +343,8 @@ class _ProveedoresListState extends State<ProveedoresList> {
   _eliminarInsumo(Proveedor proveedor) async {
     try {
       final response = await http.delete(
-        Uri.parse('https://coffevart.onrender.com/api/proveedor/${proveedor.id}'),
+        Uri.parse(
+            'https://coffevart.onrender.com/api/proveedores/${proveedor.id}'),
       );
 
       if (response.statusCode == 200) {
@@ -375,8 +375,8 @@ class _ProveedoresListState extends State<ProveedoresList> {
                     DataColumn(label: Text('Nombre')),
                     DataColumn(label: Text('Telefono')),
                     DataColumn(label: Text('Factura')),
-                    DataColumn(label: Text('cantidad')),
-                    DataColumn(label: Text('categoria')),
+                    DataColumn(label: Text('Cantidad')),
+                    DataColumn(label: Text('Categoria')),
                     DataColumn(label: Text('Fecha')),
                     DataColumn(label: Text('Estado')),
                     DataColumn(label: Text('Acciones')),
@@ -402,22 +402,27 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                     showDialog(
                                       context: context,
                                       builder: (context) {
-                                        _nombreController.text = cliente.Nombre;
-                                        _apellidoController.text =
-                                            cliente.Apellido;
-                                        _documentoController.text =
-                                            cliente.Documento;
-                                        _emailController.text = cliente.Email;
+                                        _nitController.text = prove.nit;
+                                        _nombreController.text = prove.nombre;
                                         _telefonoController.text =
-                                            cliente.Telefono;
-                                        _direccionController.text =
-                                            cliente.Direccion;
-                                        _estadoController.text = cliente.Estado;
+                                            prove.telefono.toString();
+                                        _facturaController.text = prove.factura;
+                                        _cantidadController.text =
+                                            prove.cantidad.toString();
+                                        _categoriaController.text =
+                                            prove.categoria;
+                                        _estadoController.text = prove.estado;
                                         return AlertDialog(
-                                          title: const Text('Editar Cliente'),
+                                          title: const Text('Editar Proveedor'),
                                           content: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
+                                              TextFormField(
+                                                controller: _nitController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Nit'),
+                                              ),
                                               TextFormField(
                                                 controller: _nombreController,
                                                 decoration:
@@ -425,40 +430,39 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                                         labelText: 'Nombre'),
                                               ),
                                               TextFormField(
-                                                controller: _apellidoController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        labelText: 'Apellido'),
-                                                keyboardType:
-                                                    TextInputType.number,
-                                              ),
-                                              TextFormField(
-                                                controller:
-                                                    _documentoController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        labelText: 'Documento'),
-                                                keyboardType:
-                                                    TextInputType.number,
-                                              ),
-                                              TextFormField(
-                                                controller: _emailController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        labelText: 'Email'),
-                                              ),
-                                              TextFormField(
                                                 controller: _telefonoController,
                                                 decoration:
                                                     const InputDecoration(
                                                         labelText: 'Telefono'),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                              TextFormField(
+                                                controller: _facturaController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Factura'),
+                                              ),
+                                              TextFormField(
+                                                controller: _cantidadController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Cantidad'),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                              TextFormField(
+                                                controller: _fechaController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Fecha'),
                                               ),
                                               TextFormField(
                                                 controller:
-                                                    _direccionController,
+                                                    _categoriaController,
                                                 decoration:
                                                     const InputDecoration(
-                                                        labelText: 'Direccion'),
+                                                        labelText: 'Categoria'),
                                               ),
                                               TextFormField(
                                                 controller: _estadoController,
@@ -477,7 +481,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                             ),
                                             ElevatedButton(
                                               onPressed: () {
-                                                _editarInsumo(cliente);
+                                                _editarInsumo(prove);
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Guardar'),
@@ -496,9 +500,10 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: const Text('Eliminar Cliente'),
+                                          title:
+                                              const Text('Eliminar Proveedor'),
                                           content: const Text(
-                                              '¿Estás seguro de que deseas eliminar este cliente?'),
+                                              '¿Estás seguro de que deseas eliminar este proveedor?'),
                                           actions: [
                                             ElevatedButton(
                                               onPressed: () {
@@ -508,7 +513,7 @@ class _ProveedoresListState extends State<ProveedoresList> {
                                             ),
                                             ElevatedButton(
                                               onPressed: () {
-                                                _eliminarInsumo(cliente);
+                                                _eliminarInsumo(prove);
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Eliminar'),
@@ -534,34 +539,26 @@ class _ProveedoresListState extends State<ProveedoresList> {
           showDialog(
             context: context,
             builder: (context) {
+              _nitController.clear();
               _nombreController.clear();
-              _apellidoController.clear();
-              _documentoController.clear();
-              _emailController.clear();
               _telefonoController.clear();
-              _direccionController.clear();
+              _facturaController.clear();
+              _cantidadController.clear();
+              _fechaController.clear();
+              _categoriaController.clear();
               _estadoController.clear();
               return AlertDialog(
-                title: const Text('Crear Cliente'),
+                title: const Text('Crear Proveedor'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
+                      controller: _nitController,
+                      decoration: const InputDecoration(labelText: 'Nit'),
+                    ),
+                    TextFormField(
                       controller: _nombreController,
                       decoration: const InputDecoration(labelText: 'Nombre'),
-                    ),
-                    TextFormField(
-                      controller: _apellidoController,
-                      decoration: const InputDecoration(labelText: 'Apellido'),
-                    ),
-                    TextFormField(
-                      controller: _documentoController,
-                      decoration: const InputDecoration(labelText: 'Documento'),
-                      keyboardType: TextInputType.number,
-                    ),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(labelText: 'Email'),
                     ),
                     TextFormField(
                       controller: _telefonoController,
@@ -569,8 +566,21 @@ class _ProveedoresListState extends State<ProveedoresList> {
                       keyboardType: TextInputType.number,
                     ),
                     TextFormField(
-                      controller: _direccionController,
-                      decoration: const InputDecoration(labelText: 'Direccion'),
+                      controller: _facturaController,
+                      decoration: const InputDecoration(labelText: 'Factura'),
+                    ),
+                    TextFormField(
+                      controller: _cantidadController,
+                      decoration: const InputDecoration(labelText: 'Cantidad'),
+                      keyboardType: TextInputType.number,
+                    ),
+                    TextFormField(
+                      controller: _fechaController,
+                      decoration: const InputDecoration(labelText: 'Fecha'),
+                    ),
+                    TextFormField(
+                      controller: _categoriaController,
+                      decoration: const InputDecoration(labelText: 'Categoria'),
                     ),
                     TextFormField(
                       controller: _estadoController,

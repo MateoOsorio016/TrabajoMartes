@@ -80,7 +80,7 @@ class _MyListState extends State<MyList> {
             trailing: const Icon(Icons.production_quantity_limits),
             onTap: () {
               final route = MaterialPageRoute(
-                  builder: (context) => const ProveedoresApp());
+                  builder: (context) => const ProveedoresList());
               Navigator.push(context, route);
             },
           ),
