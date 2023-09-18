@@ -82,8 +82,7 @@ class _CategoriasState extends State<Categorias> {
           label: "Nombre: ",
           controller: _nombre,
           obscureText: false,
-          validator: (value) =>
-              value!.isEmpty ? "Ingrese el nombre" : null,
+          validator: (value) => value!.isEmpty ? "Ingrese el nombre" : null,
           keyboardType: TextInputType.text,
         ),
         const SizedBox(height: 10),
@@ -99,8 +98,7 @@ class _CategoriasState extends State<Categorias> {
         ElevatedButton(
           onPressed: () {
             setState(() {
-              _futureAlbum =
-                  createAlbum(_nombre.text, _descripcion.text);
+              _futureAlbum = createAlbum(_nombre.text, _descripcion.text);
             });
           },
           child: const Text('Crear Categoria'),
@@ -235,7 +233,10 @@ class _CategoriaListState extends State<CategoriaList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('Lista Categorias')), backgroundColor: Colors.red,),
+      appBar: AppBar(
+        title: const Center(child: Text('Lista Categorias')),
+        backgroundColor: Colors.red,
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -267,13 +268,15 @@ class _CategoriaListState extends State<CategoriaList> {
                       cells: [
                         DataCell(
                           SizedBox(
-                            width: 100, // Ajusta el tamaño según tus necesidades
+                            width:
+                                100, // Ajusta el tamaño según tus necesidades
                             child: Text(categoria.nombre),
                           ),
                         ),
                         DataCell(
                           SizedBox(
-                            width: 200, // Ajusta el tamaño según tus necesidades
+                            width:
+                                200, // Ajusta el tamaño según tus necesidades
                             child: Text(categoria.descripcion),
                           ),
                         ),
@@ -285,8 +288,7 @@ class _CategoriaListState extends State<CategoriaList> {
                                   showDialog(
                                     context: context,
                                     builder: (context) {
-                                      _nombreController.text =
-                                          categoria.nombre;
+                                      _nombreController.text = categoria.nombre;
                                       _descripcionController.text =
                                           categoria.descripcion;
                                       return AlertDialog(
@@ -300,7 +302,8 @@ class _CategoriaListState extends State<CategoriaList> {
                                                   labelText: 'Nombre'),
                                             ),
                                             TextFormField(
-                                              controller: _descripcionController,
+                                              controller:
+                                                  _descripcionController,
                                               decoration: const InputDecoration(
                                                   labelText: 'Descripción'),
                                             ),
@@ -312,6 +315,9 @@ class _CategoriaListState extends State<CategoriaList> {
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Cancelar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
@@ -319,13 +325,20 @@ class _CategoriaListState extends State<CategoriaList> {
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Guardar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                         ],
                                       );
                                     },
                                   );
                                 },
-                                child: const Icon(Icons.edit),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red, // Fondo rojo
+                                ),
+                                child:
+                                    const Icon(Icons.edit, color: Colors.white),
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -342,6 +355,9 @@ class _CategoriaListState extends State<CategoriaList> {
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Cancelar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
@@ -349,13 +365,20 @@ class _CategoriaListState extends State<CategoriaList> {
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Eliminar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                         ],
                                       );
                                     },
                                   );
                                 },
-                                child: const Icon(Icons.delete),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red, // Fondo rojo
+                                ),
+                                child: const Icon(Icons.delete,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
@@ -383,7 +406,8 @@ class _CategoriaListState extends State<CategoriaList> {
                     ),
                     TextFormField(
                       controller: _descripcionController,
-                      decoration: const InputDecoration(labelText: 'Descripción'),
+                      decoration:
+                          const InputDecoration(labelText: 'Descripción'),
                     ),
                   ],
                 ),
@@ -393,6 +417,9 @@ class _CategoriaListState extends State<CategoriaList> {
                       Navigator.of(context).pop();
                     },
                     child: const Text('Cancelar'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                    ), // Fondo rojo
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -400,13 +427,17 @@ class _CategoriaListState extends State<CategoriaList> {
                       Navigator.of(context).pop();
                     },
                     child: const Text('Crear'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                    ), // Fondo rojo
                   ),
                 ],
               );
             },
           );
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

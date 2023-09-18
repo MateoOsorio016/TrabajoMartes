@@ -324,12 +324,9 @@ class _ClientesListState extends State<ClientesList> {
   _eliminarInsumo(Clientes cliente) async {
     try {
       final response = await http.delete(
-        Uri.parse('https://coffevart.onrender.com/api/clientes/'),
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: jsonEncode({'_id': cliente.Id})
-      );
+          Uri.parse('https://coffevart.onrender.com/api/clientes/'),
+          headers: {'Content-Type': 'application/json; charset=utf-8'},
+          body: jsonEncode({'_id': cliente.Id}));
 
       if (response.statusCode == 200) {
         setState(() {
@@ -456,6 +453,10 @@ class _ClientesListState extends State<ClientesList> {
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Cancelar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
                                             ),
                                             ElevatedButton(
                                               onPressed: () {
@@ -463,13 +464,21 @@ class _ClientesListState extends State<ClientesList> {
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Guardar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
                                             ),
                                           ],
                                         );
                                       },
                                     );
                                   },
-                                  child: const Icon(Icons.edit),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red,
+                                  ),
+                                  child: const Icon(Icons.edit,
+                                      color: Colors.white),
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
@@ -487,6 +496,10 @@ class _ClientesListState extends State<ClientesList> {
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Cancelar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
                                             ),
                                             ElevatedButton(
                                               onPressed: () {
@@ -494,13 +507,23 @@ class _ClientesListState extends State<ClientesList> {
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Eliminar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
                                             ),
                                           ],
                                         );
                                       },
                                     );
                                   },
-                                  child: const Icon(Icons.delete),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red, // Fondo rojo
+                                  ),
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ],
                             ),
@@ -566,6 +589,9 @@ class _ClientesListState extends State<ClientesList> {
                       Navigator.of(context).pop();
                     },
                     child: const Text('Cancelar'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red, // Fondo rojo
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -573,13 +599,17 @@ class _ClientesListState extends State<ClientesList> {
                       Navigator.of(context).pop();
                     },
                     child: const Text('Crear'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red, // Fondo rojo
+                    ),
                   ),
                 ],
               );
             },
           );
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

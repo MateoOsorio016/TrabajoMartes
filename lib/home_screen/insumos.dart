@@ -6,7 +6,6 @@ import 'package:flutter_application_2/models/insumo.dart';
 
 import 'package:http/http.dart' as http;
 
-
 Future<Album> createAlbum(String nombre, String costoSaco, String cantidad,
     String categoria, String descripcion) async {
   final response = await http.post(
@@ -30,8 +29,8 @@ Future<Album> createAlbum(String nombre, String costoSaco, String cantidad,
   }
 }
 
-class Album{
- final String id;
+class Album {
+  final String id;
   final String nombre;
   final String costoSaco;
   final String cantidad;
@@ -49,23 +48,23 @@ class Album{
 
   factory Album.fromJson(Map<String, dynamic> json) {
     return Album(
-      id: json['id'],
-      nombre: json['nombre'],
-      costoSaco: json['costoSaco'],
-      cantidad: json['cantidad'],
-      categoria: json['categoria'],
-      descripcion: json['descripcion']);
+        id: json['id'],
+        nombre: json['nombre'],
+        costoSaco: json['costoSaco'],
+        cantidad: json['cantidad'],
+        categoria: json['categoria'],
+        descripcion: json['descripcion']);
   }
 }
-
 
 class InsumosApp extends StatefulWidget {
   const InsumosApp({super.key});
 
   @override
-  State<InsumosApp> createState(){ return _InsumosAppState();}
+  State<InsumosApp> createState() {
+    return _InsumosAppState();
+  }
 }
-
 
 class _InsumosAppState extends State<InsumosApp> {
   final TextEditingController _nombreController = TextEditingController();
@@ -75,21 +74,19 @@ class _InsumosAppState extends State<InsumosApp> {
   final TextEditingController _descripcionController = TextEditingController();
   Future<Album>? _futureAlbumI;
 
-
-
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Crear Categoria'),
-          backgroundColor: Colors.red,
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(8),
-          child: (_futureAlbumI == null) ? buildColumn() : buildFutureBuilder(),
-        ),
-      );
+      appBar: AppBar(
+        title: const Text('Crear Categoria'),
+        backgroundColor: Colors.red,
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8),
+        child: (_futureAlbumI == null) ? buildColumn() : buildFutureBuilder(),
+      ),
+    );
   }
 
   Column buildColumn() {
@@ -100,39 +97,35 @@ class _InsumosAppState extends State<InsumosApp> {
           label: "Nombre: ",
           controller: _nombreController,
           obscureText: false,
-          validator: (value) =>
-              value!.isEmpty ? "Ingrese el nombre" : null,
+          validator: (value) => value!.isEmpty ? "Ingrese el nombre" : null,
           keyboardType: TextInputType.text,
         ),
         const SizedBox(height: 10),
-         InputCampo(
+        InputCampo(
           label: "Descripción: ",
           controller: _costoSacoController,
           obscureText: false,
-          validator: (value) =>
-              value!.isEmpty ? "Ingrese el costo" : null,
+          validator: (value) => value!.isEmpty ? "Ingrese el costo" : null,
           keyboardType: TextInputType.text,
         ),
         const SizedBox(height: 10),
-         InputCampo(
+        InputCampo(
           label: "Descripción: ",
           controller: _cantidadController,
           obscureText: false,
-          validator: (value) =>
-              value!.isEmpty ? "Ingrese la cantidad" : null,
+          validator: (value) => value!.isEmpty ? "Ingrese la cantidad" : null,
           keyboardType: TextInputType.text,
         ),
         const SizedBox(height: 10),
-         InputCampo(
+        InputCampo(
           label: "Descripción: ",
           controller: _categoriaController,
           obscureText: false,
-          validator: (value) =>
-              value!.isEmpty ? "Ingrese la categoria" : null,
+          validator: (value) => value!.isEmpty ? "Ingrese la categoria" : null,
           keyboardType: TextInputType.text,
         ),
         const SizedBox(height: 10),
-         InputCampo(
+        InputCampo(
           label: "Descripción: ",
           controller: _descripcionController,
           obscureText: false,
@@ -143,17 +136,16 @@ class _InsumosAppState extends State<InsumosApp> {
         const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
-  setState(() {
-    _futureAlbumI = createAlbum(
-      _nombreController.text,
-      _costoSacoController.text,
-      _cantidadController.text,
-      _categoriaController.text,
-      _descripcionController.text,
-    );
-  });
-},
-
+            setState(() {
+              _futureAlbumI = createAlbum(
+                _nombreController.text,
+                _costoSacoController.text,
+                _cantidadController.text,
+                _categoriaController.text,
+                _descripcionController.text,
+              );
+            });
+          },
           child: const Text('Crear Insumos'),
         ),
       ],
@@ -177,28 +169,29 @@ class _InsumosAppState extends State<InsumosApp> {
 }
 
 class InsumosList extends StatefulWidget {
-  const InsumosList ({super.key});
+  const InsumosList({super.key});
 
   @override
-  State<InsumosList> createState()=> _InsumosListState();
+  State<InsumosList> createState() => _InsumosListState();
 }
+
 class _InsumosListState extends State<InsumosList> {
-  bool _isLoading= true;
+  bool _isLoading = true;
 
-  List<Insumo> insumos= [];
+  List<Insumo> insumos = [];
 
-   final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _costoSacoController = TextEditingController();
   final TextEditingController _cantidadController = TextEditingController();
   final TextEditingController _categoriaController = TextEditingController();
   final TextEditingController _descripcionController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
 
-@override
-void initState(){
-  super.initState();
-  _getData();
-}
   _getData() async {
     try {
       String url = 'https://coff-v-art-api.onrender.com/api/insumo';
@@ -254,7 +247,7 @@ void initState(){
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-           "_id": insumo.id,
+          "_id": insumo.id,
           'nombre': _nombreController.text,
           'costoSaco': _costoSacoController.text,
           'cantidad': _cantidadController.text,
@@ -286,7 +279,8 @@ void initState(){
   _eliminarInsumo(Insumo insumo) async {
     try {
       final response = await http.delete(
-        Uri.parse('https://coff-v-art-api.onrender.com/api/insumo/${insumo.id}'),
+        Uri.parse(
+            'https://coff-v-art-api.onrender.com/api/insumo/${insumo.id}'),
       );
 
       if (response.statusCode == 200) {
@@ -307,140 +301,176 @@ void initState(){
         backgroundColor: Colors.red,
       ),
       body: SingleChildScrollView(
-        child: 
-      _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text('Nombre')),
-                  DataColumn(label: Text('Costo por Saco')),
-                  DataColumn(label: Text('Cantidad')),
-                  DataColumn(label: Text('Categoría')),
-                  DataColumn(label: Text('Descripción')),
-                  DataColumn(label: Text('Acciones')),
-                ],
-                rows: [
-                  for (var insumo in insumos)
-                    DataRow(
-                      cells: [
-                        DataCell(Text(insumo.nombre)),
-                        DataCell(Text(insumo.costoSaco.toString())),
-                        DataCell(Text(insumo.cantidad.toString())),
-                        DataCell(Text(insumo.categoria)),
-                        DataCell(Text(insumo.descripcion)),
-                        DataCell(
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Editar insumo
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      _nombreController.text = insumo.nombre;
-                                      _costoSacoController.text =
-                                          insumo.costoSaco;
-                                      _cantidadController.text =
-                                          insumo.cantidad;
-                                      _categoriaController.text =
-                                          insumo.categoria;
-                                      _descripcionController.text =
-                                          insumo.descripcion;
-                                      return AlertDialog(
-                                        title: const Text('Editar Insumo'),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            TextFormField(
-                                              controller: _nombreController,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Nombre'),
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columns: const [
+                    DataColumn(label: Text('Nombre')),
+                    DataColumn(label: Text('Costo por Saco')),
+                    DataColumn(label: Text('Cantidad')),
+                    DataColumn(label: Text('Categoría')),
+                    DataColumn(label: Text('Descripción')),
+                    DataColumn(label: Text('Acciones')),
+                  ],
+                  rows: [
+                    for (var insumo in insumos)
+                      DataRow(
+                        cells: [
+                          DataCell(Text(insumo.nombre)),
+                          DataCell(Text(insumo.costoSaco.toString())),
+                          DataCell(Text(insumo.cantidad.toString())),
+                          DataCell(Text(insumo.categoria)),
+                          DataCell(Text(insumo.descripcion)),
+                          DataCell(
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Editar insumo
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        _nombreController.text = insumo.nombre;
+                                        _costoSacoController.text =
+                                            insumo.costoSaco;
+                                        _cantidadController.text =
+                                            insumo.cantidad;
+                                        _categoriaController.text =
+                                            insumo.categoria;
+                                        _descripcionController.text =
+                                            insumo.descripcion;
+                                        return AlertDialog(
+                                          title: const Text('Editar Insumo'),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              TextFormField(
+                                                controller: _nombreController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Nombre'),
+                                              ),
+                                              TextFormField(
+                                                controller:
+                                                    _costoSacoController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText:
+                                                            'Costo por Saco'),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                              TextFormField(
+                                                controller: _cantidadController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Cantidad'),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                              TextFormField(
+                                                controller:
+                                                    _categoriaController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText: 'Categoría'),
+                                              ),
+                                              TextFormField(
+                                                controller:
+                                                    _descripcionController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        labelText:
+                                                            'Descripción'),
+                                              ),
+                                            ],
+                                          ),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Cancelar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
                                             ),
-                                            TextFormField(
-                                              controller: _costoSacoController,
-                                              decoration: const InputDecoration(
-                                                  labelText: 'Costo por Saco'),
-                                              keyboardType: TextInputType.number,
-                                            ),
-                                            TextFormField(
-                                              controller: _cantidadController,
-                                              decoration: const InputDecoration(
-                                                  labelText: 'Cantidad'),
-                                              keyboardType: TextInputType.number,
-                                            ),
-                                            TextFormField(
-                                              controller: _categoriaController,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Categoría'),
-                                            ),
-                                            TextFormField(
-                                              controller: _descripcionController,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Descripción'),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                _editarInsumo(insumo);
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Guardar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
                                             ),
                                           ],
-                                        ),
-                                        actions: [
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Cancelar'),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              _editarInsumo(insumo);
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Guardar'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: const Icon(Icons.edit),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Eliminar insumo
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text('Eliminar Insumo'),
-                                        content:
-                                            const Text('¿Estás seguro de que deseas eliminar este insumo?'),
-                                        actions: [
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Cancelar'),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              _eliminarInsumo(insumo);
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Eliminar'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: const Icon(Icons.delete),                              ),
-                            ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red, // Fondo rojo
+                                  ),
+                                  child: const Icon(Icons.edit,
+                                      color: Colors.white),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Eliminar insumo
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text('Eliminar Insumo'),
+                                          content: const Text(
+                                              '¿Estás seguro de que deseas eliminar este insumo?'),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Cancelar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                _eliminarInsumo(insumo);
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Eliminar'),
+                                              style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    Colors.red, // Fondo rojo
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red, // Fondo rojo
+                                  ),
+                                  child: const Icon(Icons.delete,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                ],
+                        ],
+                      ),
+                  ],
+                ),
               ),
-            ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -478,7 +508,8 @@ void initState(){
                     ),
                     TextFormField(
                       controller: _descripcionController,
-                      decoration: const InputDecoration(labelText: 'Descripción'),
+                      decoration:
+                          const InputDecoration(labelText: 'Descripción'),
                     ),
                   ],
                 ),
@@ -488,6 +519,9 @@ void initState(){
                       Navigator.of(context).pop();
                     },
                     child: const Text('Cancelar'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red, // Fondo rojo
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -495,13 +529,20 @@ void initState(){
                       Navigator.of(context).pop();
                     },
                     child: const Text('Crear'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red, // Fondo rojo
+                    ),
                   ),
                 ],
               );
             },
           );
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.red,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

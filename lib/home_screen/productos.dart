@@ -6,7 +6,6 @@ import 'package:flutter_application_2/models/producto.dart';
 
 import 'package:http/http.dart' as http;
 
-
 //https://frontendhbs.onrender.com/
 Future<Album> createAlbum(String name, String valorU, String insumo,
     String stockMin, String stockMax, String descripcion) async {
@@ -186,15 +185,16 @@ class _CrearProductoState extends State<CrearProducto> {
 }
 
 class ProductosList extends StatefulWidget {
-  const ProductosList ({super.key});
+  const ProductosList({super.key});
 
   @override
-  State<ProductosList> createState()=> _ProductosListState();
+  State<ProductosList> createState() => _ProductosListState();
 }
-class _ProductosListState extends State<ProductosList> {
-  bool _isLoading= true;
 
-  List<Product> products= [];
+class _ProductosListState extends State<ProductosList> {
+  bool _isLoading = true;
+
+  List<Product> products = [];
 
   final TextEditingController _name = TextEditingController();
   final TextEditingController _valorU = TextEditingController();
@@ -203,11 +203,12 @@ class _ProductosListState extends State<ProductosList> {
   final TextEditingController _stockMax = TextEditingController();
   final TextEditingController _descripcion = TextEditingController();
 
-@override
-void initState(){
-  super.initState();
-  _getData();
-}
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
   _getData() async {
     try {
       String url = 'https://coff-v-art-api.onrender.com/api/product';
@@ -265,7 +266,7 @@ void initState(){
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-           "_id": product.id,
+          "_id": product.id,
           'name': _name.text,
           'valorU': _valorU.text,
           'insumo': _insumo.text,
@@ -282,7 +283,7 @@ void initState(){
           product.valorU = productActualizado.valorU;
           product.insumo = productActualizado.insumo;
           product.stockMin = productActualizado.stockMin;
-          product.stockMax = productActualizado.stockMax; 
+          product.stockMax = productActualizado.stockMax;
           product.descripcion = productActualizado.descripcion;
           _name.clear();
           _valorU.clear();
@@ -300,7 +301,8 @@ void initState(){
   _eliminarInsumo(Product product) async {
     try {
       final response = await http.delete(
-        Uri.parse('https://coff-v-art-api.onrender.com/api/product/${product.id}'),
+        Uri.parse(
+            'https://coff-v-art-api.onrender.com/api/product/${product.id}'),
       );
 
       if (response.statusCode == 200) {
@@ -335,7 +337,7 @@ void initState(){
                   DataColumn(label: Text('Acciones')),
                 ],
                 rows: [
-                  for (var product in products) 
+                  for (var product in products)
                     DataRow(
                       cells: [
                         DataCell(Text(product.name)),
@@ -354,16 +356,11 @@ void initState(){
                                     context: context,
                                     builder: (context) {
                                       _name.text = product.name;
-                                      _valorU.text =
-                                          product.valorU;
-                                      _insumo.text =
-                                          product.insumo;
-                                      _stockMin.text =
-                                          product.stockMin;
-                                      _stockMax.text =
-                                      product.stockMax;
-                                      _descripcion.text =
-                                          product.descripcion;
+                                      _valorU.text = product.valorU;
+                                      _insumo.text = product.insumo;
+                                      _stockMin.text = product.stockMin;
+                                      _stockMax.text = product.stockMax;
+                                      _descripcion.text = product.descripcion;
                                       return AlertDialog(
                                         title: const Text('Editar Producto'),
                                         content: Column(
@@ -371,14 +368,15 @@ void initState(){
                                           children: [
                                             TextFormField(
                                               controller: _name,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Nombre'),
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Nombre'),
                                             ),
                                             TextFormField(
                                               controller: _valorU,
                                               decoration: const InputDecoration(
                                                   labelText: 'Valor Unitario'),
-                                              keyboardType: TextInputType.number,
+                                              keyboardType:
+                                                  TextInputType.number,
                                             ),
                                             TextFormField(
                                               controller: _insumo,
@@ -388,20 +386,22 @@ void initState(){
                                             ),
                                             TextFormField(
                                               controller: _stockMin,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Stock Minimo'),
-                                               keyboardType: TextInputType.number,
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Stock Minimo'),
+                                              keyboardType:
+                                                  TextInputType.number,
                                             ),
                                             TextFormField(
                                               controller: _stockMin,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Stock Máximo'),
-                                               keyboardType: TextInputType.number,
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Stock Máximo'),
+                                              keyboardType:
+                                                  TextInputType.number,
                                             ),
                                             TextFormField(
                                               controller: _descripcion,
-                                              decoration:
-                                                  const InputDecoration(labelText: 'Descripción'),
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Descripción'),
                                               keyboardType: TextInputType.text,
                                             ),
                                           ],
@@ -412,6 +412,9 @@ void initState(){
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Cancelar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
@@ -419,13 +422,20 @@ void initState(){
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Guardar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                         ],
                                       );
                                     },
                                   );
                                 },
-                                child: const Icon(Icons.edit),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red, // Fondo rojo
+                                ),
+                                child:
+                                    const Icon(Icons.edit, color: Colors.white),
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -435,14 +445,17 @@ void initState(){
                                     builder: (context) {
                                       return AlertDialog(
                                         title: const Text('Eliminar Producto'),
-                                        content:
-                                            const Text('¿Estás seguro de que deseas eliminar este producto?'),
+                                        content: const Text(
+                                            '¿Estás seguro de que deseas eliminar este producto?'),
                                         actions: [
                                           ElevatedButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Cancelar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
@@ -450,13 +463,20 @@ void initState(){
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Eliminar'),
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.red, // Fondo rojo
+                                            ),
                                           ),
                                         ],
                                       );
                                     },
                                   );
                                 },
-                                child: const Icon(Icons.delete),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red, // Fondo rojo
+                                ),
+                                child: const Icon(Icons.delete,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
@@ -499,17 +519,20 @@ void initState(){
                     ),
                     TextFormField(
                       controller: _stockMin,
-                      decoration: const InputDecoration(labelText: 'Stock Minimo'),
+                      decoration:
+                          const InputDecoration(labelText: 'Stock Minimo'),
                       keyboardType: TextInputType.number,
                     ),
                     TextFormField(
                       controller: _stockMax,
-                      decoration: const InputDecoration(labelText: 'Stock Máximo'),
+                      decoration:
+                          const InputDecoration(labelText: 'Stock Máximo'),
                       keyboardType: TextInputType.number,
                     ),
                     TextFormField(
                       controller: _descripcion,
-                      decoration: const InputDecoration(labelText: 'Descripción'),
+                      decoration:
+                          const InputDecoration(labelText: 'Descripción'),
                     ),
                   ],
                 ),
@@ -519,6 +542,9 @@ void initState(){
                       Navigator.of(context).pop();
                     },
                     child: const Text('Cancelar'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red, // Fondo rojo
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -526,13 +552,17 @@ void initState(){
                       Navigator.of(context).pop();
                     },
                     child: const Text('Crear'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red, // Fondo rojo
+                    ),
                   ),
                 ],
               );
             },
           );
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
