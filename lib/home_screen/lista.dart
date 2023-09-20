@@ -78,7 +78,7 @@ class MyList extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MyApp(),
+                  builder: (context) => const MapSample(),
                 ),
               );
             },
