@@ -45,7 +45,8 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         controller: emailController,
-                        style: const TextStyle(color: Colors.black), // Color de texto corporativo
+                        style: const TextStyle(
+                            color: Colors.black), // Color de texto corporativo
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: const Color.fromARGB(255, 247, 238, 238),
@@ -64,7 +65,8 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
                         controller: passwordController,
-                        style: const TextStyle(color: Colors.black), // Color de texto corporativo
+                        style: const TextStyle(
+                            color: Colors.black), // Color de texto corporativo
                         obscureText: true,
                         decoration: InputDecoration(
                           filled: true,
@@ -85,8 +87,8 @@ class _LoginState extends State<Login> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            final route =
-                                MaterialPageRoute(builder: (context) => const MyList());
+                            final route = MaterialPageRoute(
+                                builder: (context) => const MyList());
                             Navigator.push(context, route);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -97,7 +99,8 @@ class _LoginState extends State<Login> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.red, // Color de fondo del botón corporativo
+                          primary: Colors
+                              .red, // Color de fondo del botón corporativo
                         ),
                         child: const Text(
                           'Submit',

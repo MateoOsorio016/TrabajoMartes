@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/home_screen/camara.dart';
 import 'package:flutter_application_2/home_screen/categorias.dart';
 import 'package:flutter_application_2/home_screen/clientes.dart';
+import 'package:flutter_application_2/home_screen/gps.dart';
 import 'package:flutter_application_2/home_screen/insumos.dart';
 import 'package:flutter_application_2/home_screen/productos.dart';
 import 'package:flutter_application_2/home_screen/proveedores.dart';
@@ -57,18 +59,30 @@ class MyList extends StatelessWidget {
               );
             },
           ),
-          // _buildListItem(
-          //   title: 'Lista de Proveedores',
-          //   icon: Icons.subject,
-          //   onTap: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => const ProveedoresList(),
-          //       ),
-          //     );
-          //   },
-          // ),
+          _buildListItem(
+            title: 'Camara',
+            icon: Icons.camera,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MyHomePage(),
+                ),
+              );
+            },
+          ),
+          _buildListItem(
+            title: 'Gps',
+            icon: Icons.camera,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MyApp(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
